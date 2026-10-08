@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Неделя для плоского живота</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--g:#1f3a2e;--g2:#2d5242;--g3:#3e6b57;--gold:#b8955a;--gold2:#d8bd8a;--cream:#f6f1e7;--cream2:#ece3d1;--ink:#24302a;--mut:#6b746e;--white:#fffdf8;--plum:#7a5c8a}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:Inter,system-ui,sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:'Playfair Display',Georgia,serif;font-weight:600;margin:0;color:var(--g)}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px}
+section{padding:36px 0}
+.kick{font-size:12px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:8px}
+h2{font-size:28px;line-height:1.15;margin-bottom:14px}
+h2 i{color:var(--gold);font-style:italic}
+p{margin:0 0 10px}
+
+/* hero */
+.hero{background:var(--g);color:var(--cream);padding:44px 0 36px}
+.hero h1{color:var(--cream);font-size:42px;line-height:1.05;font-weight:500}
+.hero h1 i{color:var(--gold)}
+.hero .sub{color:#ddd5c3;margin:16px 0 22px;font-size:16.5px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips span{border:1px solid rgba(184,149,90,.7);border-radius:30px;padding:6px 14px;font-size:14px}
+.prog{margin-top:26px;background:rgba(255,255,255,.08);border-radius:14px;padding:14px 16px}
+.prog .row{display:flex;justify-content:space-between;font-size:14px;color:#ddd5c3;margin-bottom:8px}
+.prog .row b{color:var(--gold2)}
+.bar{height:8px;border-radius:8px;background:rgba(255,255,255,.12);overflow:hidden}
+.bar div{height:100%;background:var(--gold);width:0;transition:width .4s}
+.author{display:flex;align-items:center;gap:10px;margin-top:22px;font-size:14px;color:#ddd5c3}
+.author b{font-family:'Playfair Display',serif;color:var(--cream);font-size:17px;font-weight:500;display:block}
+
+/* cards */
+.card{background:var(--white);border-radius:18px;padding:20px;margin-bottom:14px;box-shadow:0 1px 0 var(--cream2)}
+.card h3{font-size:19px;margin-bottom:8px}
+.steps{counter-reset:s;display:grid;gap:12px}
+.step{background:var(--white);border-radius:16px;padding:16px 16px 16px 60px;position:relative}
+.step:before{counter-increment:s;content:counter(s);position:absolute;left:16px;top:15px;width:30px;height:30px;border-radius:50%;background:var(--g);color:var(--gold2);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:600}
+.step b{display:block;color:var(--g);margin-bottom:2px}
+.step span{color:var(--mut);font-size:15px}
+.warn{background:#f3ebf5;border-left:4px solid var(--plum);border-radius:14px;padding:16px 18px;font-size:15px}
+.warn b{color:var(--plum)}
+.warn a{color:var(--plum);font-weight:600}
+
+/* level switch */
+.levels{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0 8px}
+.levels button{font:inherit;border:1.5px solid var(--cream2);background:var(--white);border-radius:14px;padding:10px 4px;cursor:pointer;color:var(--ink);line-height:1.2}
+.levels button b{display:block;font-size:15px}
+.levels button small{font-size:12px;color:var(--mut)}
+.levels button.on{background:var(--g);border-color:var(--g);color:var(--cream)}
+.levels button.on small{color:var(--gold2)}
+.hint{font-size:14px;color:var(--mut)}
+.sticky{position:sticky;top:0;z-index:5;background:var(--cream);padding:10px 0 6px;border-bottom:1px solid var(--cream2)}
+.sticky .levels{margin:0}
+.sticky .lbl{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mut);font-weight:600;margin-bottom:6px}
+
+/* day tabs */
+.days{display:flex;gap:8px;overflow-x:auto;padding:14px 0 6px;scrollbar-width:none}
+.days::-webkit-scrollbar{display:none}
+.days button{flex:0 0 auto;font:inherit;width:54px;height:62px;border-radius:14px;border:1.5px solid var(--cream2);background:var(--white);cursor:pointer;color:var(--ink);line-height:1.1}
+.days button small{display:block;font-size:11px;color:var(--mut)}
+.days button b{font-family:'Playfair Display',serif;font-size:22px}
+.days button.on{background:var(--g);color:var(--cream);border-color:var(--g)}
+.days button.on small{color:var(--gold2)}
+.days button.done{border-color:var(--gold)}
+.days button.done:after{content:'✓';display:block;font-size:11px;color:var(--gold);font-weight:700;margin-top:-2px}
+.dayhead{display:flex;justify-content:space-between;align-items:flex-end;margin:18px 0 12px;gap:10px}
+.dayhead h2{margin:0}
+.part{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--g3);font-weight:700;margin:22px 0 10px}
+
+/* video */
+.vid{background:var(--white);border-radius:18px;overflow:hidden;margin-bottom:12px}
+.vid .t{padding:12px 16px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.vid .t b{color:var(--g);font-size:15.5px}
+.vid .t span{font-size:12.5px;color:var(--mut);white-space:nowrap}
+.vid.main .t{background:var(--g)}
+.vid.main .t b{color:var(--cream)}
+.vid.main .t span{color:var(--gold2)}
+.frame{position:relative;padding-top:56.25%;background:#000}
+.frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.vid .alt{display:block;padding:9px 16px;font-size:13px;color:var(--mut);text-decoration:none}
+.vid .alt u{color:var(--g2)}
+.rounds{background:var(--white);border-radius:16px;padding:16px 18px;margin:-4px 0 12px;border:1.5px solid var(--cream2)}
+.rounds b.h{display:block;font-family:'Playfair Display',serif;font-size:17px;color:var(--g);margin-bottom:8px}
+.rounds .r{display:flex;gap:10px;margin-bottom:6px;font-size:15px}
+.rounds .r span:first-child{flex:0 0 96px;font-weight:700;color:var(--g)}
+.rounds .n{font-size:13.5px;color:var(--mut);margin-top:6px}
+.check{display:flex;align-items:center;gap:12px;background:var(--white);border:1.5px dashed var(--gold);border-radius:16px;padding:14px 16px;cursor:pointer;font-weight:600;color:var(--g);user-select:none}
+.check input{width:22px;height:22px;accent-color:var(--g)}
+
+/* meals */
+.kbju{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:12px}
+.kbju div{background:var(--g);color:var(--cream);border-radius:12px;padding:8px 4px;text-align:center;font-size:12px;line-height:1.25}
+.kbju div b{display:block;font-size:17px;color:#fff}
+.meal{background:var(--white);border-radius:16px;padding:16px;margin-bottom:10px;border-left:4px solid var(--g2)}
+.meal.t0{border-left-color:#c9a46a}.meal.t1{border-left-color:#8fae9a}.meal.t2{border-left-color:var(--g2)}.meal.t3{border-left-color:var(--plum)}
+.meal .mt{font-size:11.5px;letter-spacing:2px;text-transform:uppercase;color:var(--mut);font-weight:700}
+.meal .mn{font-family:'Playfair Display',serif;font-size:18px;color:var(--g);font-weight:600;margin:2px 0 8px;line-height:1.25}
+.meal table{width:100%;border-collapse:collapse;font-size:15px}
+.meal td{padding:5px 0;border-top:1px dotted var(--cream2)}
+.meal td:last-child{text-align:right;font-weight:700;color:var(--g);white-space:nowrap;padding-left:10px}
+.meal .how{font-size:14px;color:#4f5a54;margin-top:8px}
+.tag{display:inline-block;margin-top:8px;background:var(--cream);color:var(--g2);border-radius:8px;padding:4px 10px;font-size:13px;font-weight:600}
+.tag.alt{background:#f1e9f4;color:#6a4a7a}
+.navday{display:flex;gap:10px;margin-top:14px}
+.navday button{flex:1;font:inherit;font-weight:600;border-radius:14px;padding:13px;border:1.5px solid var(--g);background:transparent;color:var(--g);cursor:pointer}
+.navday button.fill{background:var(--g);color:var(--cream)}
+.navday button[disabled]{opacity:.35;cursor:default}
+
+/* bonus */
+.bonus{background:linear-gradient(160deg,#2d5242,#1f3a2e);color:var(--cream);border-radius:20px;padding:22px 18px}
+.bonus h2{color:var(--cream)}
+.bonus p{color:#ddd5c3}
+.bonus .vid{margin:14px 0 0}
+
+/* tracker */
+.waist{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.waist label{font-size:13px;color:var(--mut);font-weight:600}
+.waist input{width:100%;font:inherit;font-size:20px;padding:10px 12px;border-radius:12px;border:1.5px solid var(--cream2);background:var(--cream);color:var(--g);margin-top:4px}
+.res{margin-top:12px;font-weight:600;color:var(--g);min-height:24px}
+
+/* details */
+details{background:var(--white);border-radius:16px;margin-bottom:10px;overflow:hidden}
+summary{list-style:none;cursor:pointer;padding:16px 46px 16px 18px;font-family:'Playfair Display',serif;font-weight:600;font-size:18px;color:var(--g);position:relative}
+summary::-webkit-details-marker{display:none}
+summary:after{content:'+';position:absolute;right:18px;top:12px;font-size:24px;color:var(--gold);font-family:Inter}
+details[open] summary:after{content:'−'}
+details .in{padding:0 18px 16px;font-size:15px}
+details ul{margin:0;padding-left:18px}
+details li{margin-bottom:7px}
+
+/* shop */
+.sg{margin-bottom:14px}
+.sg h3{font-size:16px;margin-bottom:4px}
+.sg table{width:100%;border-collapse:collapse;font-size:15px}
+.sg td{padding:5px 0;border-top:1px dotted var(--cream2)}
+.sg td:last-child{text-align:right;font-weight:700;color:var(--g)}
+.btn{display:block;text-align:center;text-decoration:none;font-weight:700;border-radius:16px;padding:15px;font-size:16px}
+.btn.gold{background:var(--gold);color:var(--g)}
+.btn.line{border:1.5px solid var(--gold);color:var(--cream);margin-top:10px}
+.btn.dark{background:var(--g);color:var(--cream)}
+
+/* final */
+.final{background:var(--g);color:var(--cream);padding:44px 0}
+.final h2{color:var(--cream)}
+.final p{color:#ddd5c3}
+.offer{background:rgba(255,255,255,.06);border:1px solid rgba(184,149,90,.4);border-radius:18px;padding:18px;margin:14px 0}
+.offer h3{color:var(--cream);font-size:20px;margin-bottom:6px}
+.offer .price{font-family:'Playfair Display',serif;color:var(--gold2);font-size:26px;margin:6px 0 12px}
+.offer .price small{font-family:Inter;font-size:13px;color:#ddd5c3}
+.offer ul{margin:0 0 4px;padding-left:18px;color:#ddd5c3;font-size:15px}
+footer{text-align:center;font-size:13px;color:var(--mut);padding:22px 16px 30px}
+@media (min-width:600px){.hero h1{font-size:54px}h2{font-size:32px}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kick">Мини-программа · 7 дней</div>
+    <h1>Неделя для <i>плоского</i> живота</h1>
+    <p class="sub">Каждый день от 15 минут тренировки и понятное питание без голода. Через неделю живот подтянутее, а вздутия заметно меньше.</p>
+    <div class="chips"><span>7 тренировок + бонус</span><span>от 15 минут в день</span><span>рацион на 3 уровня</span></div>
+    <div class="prog"><div class="row"><span>Ваш прогресс</span><b id="progTxt">0 из 7 дней</b></div><div class="bar"><div id="progBar"></div></div></div>
+    <div class="author"><div><b>Алёна Сивак</b>Фитнес-тренер и нутрициолог · 11 лет опыта</div></div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="kick">Перед стартом</div>
+    <h2>Как проходить <i>неделю</i></h2>
+    <div class="steps">
+      <div class="step"><b>Выберите уровень калорийности</b><span>Ниже три варианта. Не знаете свой, берите 1500–1600, это самый частый уровень.</span></div>
+      <div class="step"><b>Замерьте талию утром первого дня</b><span>Натощак, по самой узкой части. Впишите в трекер внизу страницы.</span></div>
+      <div class="step"><b>Каждый день открывайте свой день</b><span>Разминка, табата дня и заминка. Табату повторяете от 2 до 6 кругов, по самочувствию. Меню на день там же.</span></div>
+      <div class="step"><b>Отмечайте выполненные тренировки</b><span>На 8 день повторите замер и сравните.</span></div>
+    </div>
+    <div class="card" style="margin-top:14px">
+      <h3>Уровень калорийности</h3>
+      <ul style="margin:0;padding-left:18px;font-size:15px;color:#4f5a54">
+        <li><b>1400–1500</b>: рост до 160 см, сидячая работа, тренировки 2–3 раза в неделю</li>
+        <li><b>1500–1600</b>: самый частый вариант, если сомневаетесь</li>
+        <li><b>1700–1800</b>: рост от 168 см, много движения или тренировки 4–5 раз в неделю</li>
+      </ul>
+      <p class="hint" style="margin-top:8px">Если постоянно голодно или, наоборот, не съедается, переходите на соседний уровень. Переключить можно в любой момент.</p>
+    </div>
+    <div class="warn"><b>Если у вас диастаз</b> или недавно были роды, табату с прыжками и скручиваниями пока не делайте. Вместо неё выполняйте спокойные упражнения на глубокий кор: <a href="https://youtu.be/Ul4HSemEars" target="_blank" rel="noopener">мёртвый жук</a> и <a href="https://youtu.be/8PMAZdAfOLo" target="_blank" rel="noopener">птица-собака</a>, по 3 подхода. Питание подходит всем.</div>
+  </div>
+</section>
+
+<section style="padding-top:0" id="week">
+  <div class="sticky"><div class="wrap">
+    <div class="lbl">Мой уровень, ккал</div>
+    <div class="levels" id="levels"></div>
+  </div></div>
+  <div class="wrap">
+    <div class="days" id="days"></div>
+    <div id="day"></div>
+  </div>
+</section>
+
+<section style="padding-top:8px">
+  <div class="wrap">
+    <div class="bonus">
+      <div class="kick">Бонус · день 8</div>
+      <h2>Финальная тренировка</h2>
+      <p>Откройте её после седьмого дня, когда пройдёте всю неделю. Это проверка: вы удивитесь, насколько легче она пойдёт, чем могла бы неделю назад.</p>
+      <div class="vid main">
+        <div class="t"><b>Бонусная тренировка</b><span>день 8</span></div>
+        <div class="frame"><iframe loading="lazy" src="https://www.youtube.com/embed/LaOlAql69yI" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe></div>
+        <a class="alt" href="https://youtu.be/LaOlAql69yI" target="_blank" rel="noopener">Не грузится? Включите VPN или <u>откройте на YouTube</u></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:8px" id="tracker">
+  <div class="wrap">
+    <div class="kick">Трекер</div>
+    <h2>Замер <i>талии</i></h2>
+    <div class="card">
+      <p style="font-size:15px;color:#4f5a54">Утром, натощак, по самой узкой части талии. На этой неделе сантиметры покажут больше, чем весы.</p>
+      <div class="waist">
+        <div><label for="w1">День 1, см</label><input id="w1" type="number" inputmode="decimal" step="0.1" placeholder="0"></div>
+        <div><label for="w8">День 8, см</label><input id="w8" type="number" inputmode="decimal" step="0.1" placeholder="0"></div>
+      </div>
+      <div class="res" id="wres"></div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:8px">
+  <div class="wrap">
+    <div class="kick">Полезное</div>
+    <h2>Всё <i>под рукой</i></h2>
+
+    <details>
+      <summary>Памятка про вздутие</summary>
+      <div class="in">
+        <p>Часто живот кажется больше не из-за жира, а из-за вздутия и задержки воды. Это уходит быстрее всего, поэтому первые изменения видно уже на 3–4 день.</p>
+        <p><b>Что мы убрали из рациона:</b></p>
+        <ul>
+          <li><b>Бобовые</b> (фасоль, горох, нут, чечевица): сильнее всего дают газообразование</li>
+          <li><b>Белокочанную капусту и брокколи</b>: та же причина</li>
+          <li><b>Цельное молоко</b>: у многих взрослых плохо усваивается. Вместо него кефир, йогурт и творог</li>
+          <li><b>Сладкое и газировку</b>: сахар бродит, газы раздувают живот</li>
+        </ul>
+        <p style="margin-top:10px"><b>Пять привычек на эту неделю:</b></p>
+        <ul>
+          <li><b>Вода</b> 30 мл на 1 кг веса. Чем больше пьёте, тем меньше вода задерживается</li>
+          <li><b>Ешьте медленно</b> и без телефона, с едой проглатывается воздух</li>
+          <li><b>Не пейте много во время еды</b>, лучше за 20 минут до или через час после</li>
+          <li><b>Ужин за 3 часа до сна</b>, чтобы утром проснуться с плоским животом</li>
+          <li><b>10–15 минут пешком</b> после ужина</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>Как взвешивать и что можно без ограничений</summary>
+      <div class="in">
+        <p>Крупы, макароны и мука указаны в сухом виде. Мясо, рыба, овощи и картофель в сыром, уже очищенном. Первые пару дней взвешивайте всё.</p>
+        <p><b>Ужин сегодня = обед завтра.</b> Вечером готовите двойную порцию, вторую убираете в контейнер. У плиты один раз в день.</p>
+        <p><b>Можно без ограничений:</b> вода, чай и кофе без сахара, соль, перец, сухие травы, корица, лимонный сок, чеснок, зелень.</p>
+        <p><b>Лучше убрать на эту неделю:</b> сахар и сладкое, газировку и соки, магазинные соусы и майонез, алкоголь.</p>
+      </div>
+    </details>
+
+    <details id="shopBox">
+      <summary>Список покупок на неделю</summary>
+      <div class="in">
+        <p class="hint">Для уровня <b id="shopLvl"></b> ккал, с учётом двойных ужинов. Мясо и рыбу удобно сразу разложить по порциям и заморозить.</p>
+        <div id="shop"></div>
+      </div>
+    </details>
+
+    <details>
+      <summary>Если чего-то нет, меняйте</summary>
+      <div class="in"><ul>
+        <li>Куриное филе ↔ филе индейки ↔ куриный фарш (тот же вес)</li>
+        <li>Хек ↔ минтай ↔ треска ↔ пикша (тот же вес)</li>
+        <li>Гречка ↔ рис ↔ булгур ↔ киноа (тот же вес в сухом виде)</li>
+        <li>Творог 5% ↔ греческий йогурт 2% (йогурта в 1,5 раза больше)</li>
+        <li>Кабачок ↔ тыква ↔ болгарский перец ↔ стручковая фасоль</li>
+        <li>Банан ↔ яблоко ↔ груша (яблока и груши на 30% больше)</li>
+      </ul></div>
+    </details>
+
+    <a class="btn dark" href="ration.pdf" download style="margin-top:14px">Скачать рацион в PDF</a>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap">
+    <div class="kick">Неделя позади</div>
+    <h2>Что <i>дальше?</i></h2>
+    <p>Если вы прошли эту неделю, вы уже знаете главное: питание без голода работает, а живот становится площе, когда еда и тренировки идут вместе. Неделя даёт старт. Чтобы закрепить результат, нужна система.</p>
+
+    <div class="offer">
+      <h3>Пакет из 10 тренировок</h3>
+      <ul>
+        <li>полноценные тренировки на все группы мышц</li>
+        <li>прогрессия по неделям, чтобы не застревать</li>
+        <li>рацион на 4 недели под 5 уровней калорийности</li>
+      </ul>
+      <div class="price">1290 ₽ <small>оплата один раз, доступ навсегда</small></div>
+      <a class="btn gold" href="https://link.payform.ru/?paymentLinkId=777ed2e8-8d84-42a5-abe2-cd30a94455bf" target="_blank" rel="noopener">Забрать пакет</a>
+    </div>
+
+    <div class="offer">
+      <h3>Закрытый клуб</h3>
+      <ul>
+        <li>200+ тренировок и новая программа каждый месяц</li>
+        <li>готовые рационы питания</li>
+        <li>живой чат девочек, которые занимаются вместе с вами</li>
+      </ul>
+      <div class="price">1800 ₽ <small>вход, далее от 990 ₽/мес</small></div>
+      <a class="btn line" href="https://t.me/FitnessTrainingX_bot" target="_blank" rel="noopener">Вступить в клуб</a>
+    </div>
+  </div>
+</section>
+
+<footer>Алёна Сивак · @alena.fit.home<br><span style="font-size:12px">Рацион рассчитан для здоровых взрослых. При заболеваниях ЖКТ, диабете, беременности и грудном вскармливании согласуйте питание с врачом.</span></footer>
+
+<script>
+const D = {"levels": ["1400–1500", "1500–1600", "1700–1800"], "days": [{"meals": [{"type": "Завтрак", "name": "Овсянка с бананом и йогуртом", "rows": [["Овсяные хлопья", "50 г", "55 г", "65 г"], ["Банан", "95 г", "105 г", "120 г"], ["Йогурт греческий 2%", "95 г", "105 г", "120 г"], ["Грецкий орех", "10 г", "10 г", "10 г"]], "how": "Хлопья залить кипятком на 5 минут или сварить на воде. Сверху банан, йогурт, орехи и щепотка корицы.", "note": ""}, {"type": "Перекус", "name": "Творог с ягодами", "rows": [["Творог 5%", "145 г", "155 г", "175 г"], ["Ягоды замороженные", "100 г", "100 г", "100 г"]], "how": "Ягоды разморозить, смешать с творогом.", "note": ""}, {"type": "Обед", "name": "Гречка с курицей и овощным салатом", "rows": [["Гречка (сухая)", "55 г", "60 г", "70 г"], ["Куриное филе", "135 г", "145 г", "160 г"], ["Огурец", "100 г", "100 г", "100 г"], ["Помидор", "100 г", "100 г", "100 г"], ["Оливковое масло", "5 г", "5 г", "6 г"]], "how": "Гречку отварить. Курицу запечь 20 минут при 200° или обжарить. Салат заправить маслом.", "note": ""}, {"type": "Ужин", "name": "Курица, тушённая с кабачком и морковью, и рис", "rows": [["Куриное филе", "135 г", "145 г", "160 г"], ["Кабачок", "150 г", "150 г", "150 г"], ["Морковь", "60 г", "60 г", "60 г"], ["Рис (сухой)", "50 г", "55 г", "65 г"], ["Оливковое масло", "5 г", "5 г", "6 г"]], "how": "Курицу нарезать кубиками, обжарить на масле 5 минут. Добавить морковь и кабачок, немного воды, тушить под крышкой 15 минут. Рис отварить.", "note": "Готовьте двойную порцию: вторая пойдёт на обед завтра"}], "kbju": [[1446, 121, 38, 158], [1547, 130, 39, 171], [1748, 145, 44, 195]]}, {"meals": [{"type": "Завтрак", "name": "Омлет со шпинатом и сыром, хлеб", "rows": [["Яйцо", "2 шт", "2 шт", "2 шт"], ["Шпинат", "50 г", "50 г", "50 г"], ["Сыр лёгкий", "25 г", "25 г", "30 г"], ["Хлеб цельнозерновой", "40 г", "45 г", "55 г"]], "how": "Взбить яйца, вылить на сковороду со шпинатом, готовить под крышкой 5 минут, посыпать сыром.", "note": ""}, {"type": "Перекус", "name": "Кефир и грецкие орехи", "rows": [["Кефир 1%", "285 мл", "310 мл", "360 мл"], ["Грецкий орех", "15 г", "20 г", "20 г"]], "how": "", "note": ""}, {"type": "Обед", "name": "Курица, тушённая с кабачком и морковью, и рис", "rows": [["Куриное филе", "135 г", "145 г", "160 г"], ["Кабачок", "150 г", "150 г", "150 г"], ["Морковь", "60 г", "60 г", "60 г"], ["Рис (сухой)", "50 г", "55 г", "65 г"], ["Оливковое масло", "5 г", "5 г", "6 г"]], "how": "", "note": "Вчерашний ужин, просто разогрейте"}, {"type": "Ужин", "name": "Запечённый хек с картофелем", "rows": [["Хек", "220 г", "235 г", "265 г"], ["Картофель", "235 г", "260 г", "310 г"], ["Огурец", "100 г", "100 г", "100 г"], ["Оливковое масло", "6 г", "6 г", "7 г"]], "how": "Картофель нарезать дольками, сбрызнуть маслом, запекать 15 минут при 200°. Добавить хек, посолить, запекать ещё 15–20 минут. Подавать с огурцом.", "note": "Готовьте двойную порцию: вторая пойдёт на обед завтра"}], "kbju": [[1434, 115, 52, 124], [1550, 123, 56, 135], [1743, 137, 62, 158]]}, {"meals": [{"type": "Завтрак", "name": "Запечённые сырники", "rows": [["Творог 5%", "140 г", "150 г", "165 г"], ["Яйцо", "1 шт", "1 шт", "1 шт"], ["Рисовая мука", "25 г", "25 г", "30 г"], ["Йогурт греческий 2%", "45 г", "50 г", "55 г"]], "how": "Смешать творог, яйцо и муку, сформировать сырники. Запекать на пергаменте 20 минут при 180°. Подавать с йогуртом.", "note": ""}, {"type": "Перекус", "name": "Банан и миндаль", "rows": [["Банан", "110 г", "120 г", "140 г"], ["Миндаль", "15 г", "15 г", "15 г"]], "how": "", "note": ""}, {"type": "Обед", "name": "Запечённый хек с картофелем", "rows": [["Хек", "220 г", "235 г", "265 г"], ["Картофель", "235 г", "260 г", "310 г"], ["Огурец", "100 г", "100 г", "100 г"], ["Оливковое масло", "6 г", "6 г", "7 г"]], "how": "", "note": "Вчерашний ужин, просто разогрейте"}, {"type": "Ужин", "name": "Тефтели из индейки в томате с булгуром", "rows": [["Фарш индейки", "140 г", "150 г", "165 г"], ["Томаты в собственном соку", "150 г", "150 г", "150 г"], ["Морковь", "50 г", "50 г", "50 г"], ["Булгур (сухой)", "45 г", "50 г", "60 г"], ["Оливковое масло", "5 г", "5 г", "6 г"]], "how": "Сформировать тефтели, слегка обжарить на масле, залить томатами с тёртой морковью. Тушить под крышкой 20 минут. Булгур отварить 15 минут.", "note": "Готовьте двойную порцию: вторая пойдёт на обед завтра"}], "kbju": [[1458, 119, 51, 126], [1546, 127, 53, 135], [1743, 141, 58, 158]]}, {"meals": [{"type": "Завтрак", "name": "Овсянка с яблоком и творогом", "rows": [["Овсяные хлопья", "50 г", "55 г", "65 г"], ["Яблоко", "125 г", "130 г", "145 г"], ["Творог 5%", "100 г", "105 г", "115 г"], ["Грецкий орех", "10 г", "10 г", "10 г"]], "how": "Сварить овсянку на воде, добавить тёртое яблоко, орехи и корицу. Творог отдельно или сверху.", "note": ""}, {"type": "Перекус", "name": "Кефир и хлебцы", "rows": [["Кефир 1%", "255 мл", "275 мл", "305 мл"], ["Хлебцы цельнозерновые", "20 г", "20 г", "25 г"]], "how": "", "note": ""}, {"type": "Обед", "name": "Тефтели из индейки в томате с булгуром", "rows": [["Фарш индейки", "140 г", "150 г", "165 г"], ["Томаты в собственном соку", "150 г", "150 г", "150 г"], ["Морковь", "50 г", "50 г", "50 г"], ["Булгур (сухой)", "45 г", "50 г", "60 г"], ["Оливковое масло", "5 г", "5 г", "6 г"]], "how": "", "note": "Вчерашний ужин, просто разогрейте"}, {"type": "Ужин", "name": "Паста с курицей, томатами и шпинатом", "rows": [["Макароны твёрдых сортов", "55 г", "60 г", "70 г"], ["Куриное филе", "135 г", "140 г", "150 г"], ["Помидор", "150 г", "150 г", "150 г"], ["Шпинат", "30 г", "30 г", "30 г"], ["Сыр лёгкий", "15 г", "15 г", "20 г"]], "how": "Отварить пасту. Курицу обжарить без масла на антипригарной сковороде, добавить нарезанные помидоры и шпинат, прогреть 3 минуты. Смешать с пастой, сверху сыр.", "note": "Готовьте двойную порцию: вторая пойдёт на обед завтра"}], "kbju": [[1452, 116, 41, 148], [1540, 122, 43, 159], [1746, 136, 48, 184]]}, {"meals": [{"type": "Завтрак", "name": "Бутерброды с яйцом и огурцом", "rows": [["Хлеб цельнозерновой", "40 г", "50 г", "55 г"], ["Творожный сыр лёгкий", "20 г", "25 г", "30 г"], ["Яйцо", "2 шт", "2 шт", "2 шт"], ["Огурец", "100 г", "100 г", "100 г"]], "how": "Хлеб смазать творожным сыром, сверху яйца (варёные 8 минут) и огурец.", "note": ""}, {"type": "Перекус", "name": "Творог с ягодами и миндалём", "rows": [["Творог 5%", "155 г", "165 г", "190 г"], ["Ягоды замороженные", "100 г", "100 г", "100 г"], ["Миндаль", "10 г", "10 г", "15 г"]], "how": "", "note": ""}, {"type": "Обед", "name": "Паста с курицей, томатами и шпинатом", "rows": [["Макароны твёрдых сортов", "55 г", "60 г", "70 г"], ["Куриное филе", "135 г", "140 г", "150 г"], ["Помидор", "150 г", "150 г", "150 г"], ["Шпинат", "30 г", "30 г", "30 г"], ["Сыр лёгкий", "15 г", "15 г", "20 г"]], "how": "", "note": "Вчерашний ужин, просто разогрейте"}, {"type": "Ужин", "name": "Минтай, запечённый с морковью, и рис", "rows": [["Минтай", "205 г", "225 г", "250 г"], ["Морковь", "80 г", "80 г", "80 г"], ["Рис (сухой)", "55 г", "60 г", "70 г"], ["Оливковое масло", "5 г", "6 г", "7 г"]], "how": "Минтай выложить на морковь соломкой, сбрызнуть маслом и лимонным соком, запекать 20 минут при 190°. Рис отварить.", "note": "Готовьте двойную порцию: вторая пойдёт на обед завтра"}], "kbju": [[1445, 131, 44, 128], [1554, 140, 47, 140], [1757, 155, 55, 158]]}, {"meals": [{"type": "Завтрак", "name": "Овсяноблин с сыром и помидором", "rows": [["Овсяные хлопья", "45 г", "45 г", "55 г"], ["Яйцо", "1 шт", "1 шт", "1 шт"], ["Йогурт греческий 2%", "55 г", "55 г", "65 г"], ["Сыр лёгкий", "20 г", "25 г", "25 г"], ["Помидор", "80 г", "80 г", "80 г"]], "how": "Смешать хлопья, яйцо и йогурт, дать постоять 5 минут. Жарить на антипригарной сковороде без масла по 3 минуты с каждой стороны. Начинка: сыр и помидор.", "note": ""}, {"type": "Перекус", "name": "Банан и кефир", "rows": [["Банан", "110 г", "115 г", "130 г"], ["Кефир 1%", "215 мл", "230 мл", "265 мл"]], "how": "", "note": ""}, {"type": "Обед", "name": "Минтай, запечённый с морковью, и рис", "rows": [["Минтай", "205 г", "225 г", "250 г"], ["Морковь", "80 г", "80 г", "80 г"], ["Рис (сухой)", "55 г", "60 г", "70 г"], ["Оливковое масло", "5 г", "6 г", "7 г"]], "how": "", "note": "Вчерашний ужин, просто разогрейте"}, {"type": "Ужин", "name": "Говядина, тушённая с тыквой, и гречка", "rows": [["Говядина постная", "150 г", "155 г", "175 г"], ["Тыква", "150 г", "150 г", "150 г"], ["Гречка (сухая)", "60 г", "65 г", "75 г"], ["Оливковое масло", "5 г", "6 г", "7 г"]], "how": "Говядину нарезать тонкими полосками, обжарить на масле 5 минут. Добавить тыкву кубиками и немного воды, тушить под крышкой 15 минут. Гречку отварить.", "note": "Готовьте двойную порцию: вторая пойдёт на обед завтра"}], "kbju": [[1449, 110, 42, 158], [1548, 117, 46, 166], [1749, 130, 51, 191]]}, {"meals": [{"type": "Завтрак", "name": "Творожная запеканка с бананом", "rows": [["Творог 5%", "165 г", "180 г", "195 г"], ["Яйцо", "1 шт", "1 шт", "1 шт"], ["Банан", "70 г", "80 г", "90 г"], ["Овсяные хлопья", "20 г", "20 г", "25 г"]], "how": "Всё смешать блендером или вилкой, выложить в форму. Запекать 25 минут при 180°.", "note": ""}, {"type": "Перекус", "name": "Хлебцы с сыром и огурцом", "rows": [["Хлебцы цельнозерновые", "20 г", "20 г", "25 г"], ["Сыр лёгкий", "20 г", "20 г", "25 г"], ["Огурец", "100 г", "100 г", "100 г"]], "how": "", "note": ""}, {"type": "Обед", "name": "Говядина, тушённая с тыквой, и гречка", "rows": [["Говядина постная", "150 г", "155 г", "175 г"], ["Тыква", "150 г", "150 г", "150 г"], ["Гречка (сухая)", "60 г", "65 г", "75 г"], ["Оливковое масло", "5 г", "6 г", "7 г"]], "how": "", "note": "Вчерашний ужин, просто разогрейте"}, {"type": "Ужин", "name": "Куриные котлеты на пару, пюре и салат", "rows": [["Куриный фарш", "140 г", "150 г", "165 г"], ["Картофель", "175 г", "195 г", "230 г"], ["Огурец", "100 г", "100 г", "100 г"], ["Помидор", "100 г", "100 г", "100 г"], ["Оливковое масло", "4 г", "5 г", "6 г"]], "how": "Сформировать котлеты, готовить на пару или запекать 20 минут. Картофель отварить и размять с отваром вместо молока. Салат заправить маслом.", "note": ""}], "kbju": [[1455, 117, 55, 124], [1554, 124, 59, 132], [1757, 138, 67, 152]]}], "shop": [{"Овсяные хлопья": "170 г", "Банан": "390 г", "Йогурт греческий 2%": "200 г", "Грецкий орех": "40 г", "Творог 5%": "710 г", "Ягоды замороженные": "200 г", "Гречка (сухая)": "180 г", "Куриное филе": "680 г", "Огурец": "600 г", "Помидор": "580 г", "Оливковое масло": "61 г", "Кабачок": "300 г", "Морковь": "380 г", "Рис (сухой)": "210 г", "Яйцо": "7 шт", "Шпинат": "110 г", "Сыр лёгкий": "100 г", "Хлеб цельнозерновой": "80 г", "Кефир 1%": "0,8 л", "Хек": "440 г", "Картофель": "650 г", "Рисовая мука": "30 г", "Миндаль": "30 г", "Фарш индейки": "280 г", "Томаты в собственном соку": "300 г", "Булгур (сухой)": "90 г", "Яблоко": "130 г", "Хлебцы цельнозерновые": "40 г", "Макароны твёрдых сортов": "110 г", "Творожный сыр лёгкий": "20 г", "Минтай": "410 г", "Говядина постная": "300 г", "Тыква": "300 г", "Куриный фарш": "140 г"}, {"Овсяные хлопья": "180 г", "Банан": "420 г", "Йогурт греческий 2%": "210 г", "Грецкий орех": "40 г", "Творог 5%": "760 г", "Ягоды замороженные": "200 г", "Гречка (сухая)": "190 г", "Куриное филе": "720 г", "Огурец": "600 г", "Помидор": "580 г", "Оливковое масло": "66 г", "Кабачок": "300 г", "Морковь": "380 г", "Рис (сухой)": "230 г", "Яйцо": "7 шт", "Шпинат": "110 г", "Сыр лёгкий": "100 г", "Хлеб цельнозерновой": "100 г", "Кефир 1%": "0,9 л", "Хек": "470 г", "Картофель": "720 г", "Рисовая мука": "30 г", "Миндаль": "30 г", "Фарш индейки": "300 г", "Томаты в собственном соку": "300 г", "Булгур (сухой)": "100 г", "Яблоко": "130 г", "Хлебцы цельнозерновые": "40 г", "Макароны твёрдых сортов": "120 г", "Творожный сыр лёгкий": "30 г", "Минтай": "450 г", "Говядина постная": "310 г", "Тыква": "300 г", "Куриный фарш": "150 г"}, {"Овсяные хлопья": "210 г", "Банан": "480 г", "Йогурт греческий 2%": "240 г", "Грецкий орех": "40 г", "Творог 5%": "840 г", "Ягоды замороженные": "200 г", "Гречка (сухая)": "220 г", "Куриное филе": "780 г", "Огурец": "600 г", "Помидор": "580 г", "Оливковое масло": "78 г", "Кабачок": "300 г", "Морковь": "380 г", "Рис (сухой)": "270 г", "Яйцо": "7 шт", "Шпинат": "110 г", "Сыр лёгкий": "120 г", "Хлеб цельнозерновой": "110 г", "Кефир 1%": "1,0 л", "Хек": "530 г", "Картофель": "850 г", "Рисовая мука": "30 г", "Миндаль": "30 г", "Фарш индейки": "330 г", "Томаты в собственном соку": "300 г", "Булгур (сухой)": "120 г", "Яблоко": "150 г", "Хлебцы цельнозерновые": "50 г", "Макароны твёрдых сортов": "140 г", "Творожный сыр лёгкий": "30 г", "Минтай": "500 г", "Говядина постная": "350 г", "Тыква": "300 г", "Куриный фарш": "170 г"}], "groups": [["Мясо и рыба", ["Куриное филе", "Куриный фарш", "Фарш индейки", "Говядина постная", "Хек", "Минтай"]], ["Молочное и яйца", ["Творог 5%", "Йогурт греческий 2%", "Кефир 1%", "Сыр лёгкий", "Творожный сыр лёгкий", "Яйцо"]], ["Крупы, хлеб, макароны", ["Овсяные хлопья", "Гречка (сухая)", "Рис (сухой)", "Булгур (сухой)", "Макароны твёрдых сортов", "Рисовая мука", "Хлеб цельнозерновой", "Хлебцы цельнозерновые"]], ["Овощи", ["Огурец", "Помидор", "Кабачок", "Морковь", "Тыква", "Картофель", "Шпинат", "Томаты в собственном соку"]], ["Фрукты и ягоды", ["Банан", "Яблоко", "Ягоды замороженные"]], ["Орехи и масло", ["Грецкий орех", "Миндаль", "Оливковое масло"]]], "videos": ["F7lpxmyi81w", "g5FKgyRPTLU", "TJRpmB3QXgA", "Mq-M667dZRc", "qGTOrh6heLc", "xB5CDO8rMOg", "HlCrdQzLXsI"]};
+const WARM = "KmVe-XTX_CQ", COOL = "zYTylOptkb8";
+const TYPES = ["Завтрак","Перекус","Обед","Ужин"];
+const ROUNDS = `<div class="rounds"><b class="h">Сколько кругов делать</b>
+<div class="r"><span>2 круга</span><span>если вы совсем новичок</span></div>
+<div class="r"><span>3–4 круга</span><span>если 2 круга даются легко</span></div>
+<div class="r"><span>до 6 кругов</span><span>если хочется нагрузки больше</span></div>
+<div class="n">Одна табата идёт 4 минуты. Между кругами отдых 1–2 минуты: пейте воду, дышите, и запускайте видео снова.</div></div>`;
+function load(k, def){ try{ const v = localStorage.getItem("nedzh_"+k); return v===null?def:JSON.parse(v);}catch(e){return def;} }
+function save(k, v){ try{ localStorage.setItem("nedzh_"+k, JSON.stringify(v)); }catch(e){} }
+
+let level = load("level", 1);
+let done = load("done", []);
+let cur = load("day", 0);
+
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");}
+
+function renderLevels(){
+  const el = document.getElementById("levels");
+  el.innerHTML = D.levels.map((l,i)=>`<button class="${i===level?'on':''}" data-l="${i}"><b>${l}</b><small>${["меньше","самый частый","больше"][i]}</small></button>`).join("");
+  el.querySelectorAll("button").forEach(b=>b.onclick=()=>{level=+b.dataset.l;save("level",level);renderLevels();renderDay(false);renderShop();});
+}
+
+function renderTabs(){
+  const el = document.getElementById("days");
+  el.innerHTML = D.days.map((_,i)=>`<button class="${i===cur?'on':''} ${done.includes(i)?'done':''}" data-d="${i}"><small>день</small><b>${i+1}</b></button>`).join("");
+  el.querySelectorAll("button").forEach(b=>b.onclick=()=>{cur=+b.dataset.d;save("day",cur);renderTabs();renderDay(true);});
+  const n = done.length;
+  document.getElementById("progTxt").textContent = n + " из 7 дней";
+  document.getElementById("progBar").style.width = (n/7*100)+"%";
+}
+
+function video(id, title, meta, main){
+  return `<div class="vid ${main?'main':''}"><div class="t"><b>${title}</b><span>${meta}</span></div>
+  <div class="frame"><iframe loading="lazy" src="https://www.youtube.com/embed/${id}" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe></div>
+  <a class="alt" href="https://youtu.be/${id}" target="_blank" rel="noopener">Не грузится? Включите VPN или <u>откройте на YouTube</u></a></div>`;
+}
+
+let videoDay = -1;
+function renderDay(scroll){
+  const d = D.days[cur], k = d.kbju[level];
+  const box = document.getElementById("day");
+  let html = "";
+  if (videoDay !== cur || !box.querySelector(".videos")) {
+    html += `<div class="dayhead"><h2>День <i>${cur+1}</i></h2></div>
+    <div class="part">Тренировка дня</div><div class="videos">
+    ${video(WARM,"1. Суставная разминка","перед табатой",false)}
+    ${video(D.videos[cur],"2. Табата дня "+(cur+1),"4 минуты, 2–6 кругов",true)}
+    ${ROUNDS}
+    ${video(COOL,"3. Заминка и растяжка","после табаты",false)}</div>
+    <label class="check"><input type="checkbox" id="chk"> Тренировка дня выполнена</label>
+    <div class="part">Питание дня</div><div id="food"></div>
+    <div class="navday"><button id="prev">← День ${cur}</button><button class="fill" id="next">День ${cur+2} →</button></div>`;
+    box.innerHTML = html;
+    videoDay = cur;
+    const chk = document.getElementById("chk");
+    chk.checked = done.includes(cur);
+    chk.onchange = ()=>{ if(chk.checked){ if(!done.includes(cur)) done.push(cur);} else done = done.filter(x=>x!==cur); save("done",done); renderTabs(); };
+    const pv = document.getElementById("prev"), nx = document.getElementById("next");
+    if (cur===0){pv.disabled=true;pv.textContent="← Назад";}
+    if (cur===6){nx.textContent="Бонус: день 8 →";}
+    pv.onclick=()=>{ if(cur>0){cur--;save("day",cur);renderTabs();renderDay(true);} };
+    nx.onclick=()=>{ if(cur<6){cur++;save("day",cur);renderTabs();renderDay(true);} else document.querySelector(".bonus").scrollIntoView({behavior:"smooth"}); };
+  }
+  let f = `<div class="kbju"><div><b>${k[0]}</b>ккал</div><div><b>${k[1]}</b>белки</div><div><b>${k[2]}</b>жиры</div><div><b>${k[3]}</b>углеводы</div></div>`;
+  d.meals.forEach((m,i)=>{
+    f += `<div class="meal t${i}"><div class="mt">${m.type}</div><div class="mn">${esc(m.name)}</div><table>${m.rows.map(r=>`<tr><td>${esc(r[0])}</td><td>${r[level+1]}</td></tr>`).join("")}</table>
+    ${m.how?`<div class="how">${esc(m.how)}</div>`:""}${m.note?`<div class="tag ${m.type==="Обед"?"alt":""}">${m.note}</div>`:""}</div>`;
+  });
+  document.getElementById("food").innerHTML = f;
+  if (scroll) document.getElementById("days").scrollIntoView({behavior:"smooth", block:"start"});
+}
+
+function renderShop(){
+  document.getElementById("shopLvl").textContent = D.levels[level];
+  const s = D.shop[level];
+  document.getElementById("shop").innerHTML = D.groups.map(([g,items])=>`<div class="sg"><h3>${g}</h3><table>${items.filter(p=>s[p]).map(p=>`<tr><td>${esc(p)}</td><td>${s[p]}</td></tr>`).join("")}</table></div>`).join("");
+}
+
+function waist(){
+  const a = document.getElementById("w1"), b = document.getElementById("w8"), r = document.getElementById("wres");
+  a.value = load("w1",""); b.value = load("w8","");
+  const upd = ()=>{ save("w1",a.value); save("w8",b.value);
+    const x = parseFloat(a.value), y = parseFloat(b.value);
+    if (x && y) { const dlt = Math.round((x-y)*10)/10;
+      r.textContent = dlt>0 ? `Минус ${String(dlt).replace(".",",")} см за неделю. Отличный результат!` : dlt===0 ? "Талия без изменений. Проверьте воду и вздутие, и продолжайте." : "Замеры могут колебаться от воды. Перемерьте утром натощак.";
+    } else r.textContent = ""; };
+  a.oninput = upd; b.oninput = upd; upd();
+}
+
+renderLevels(); renderTabs(); renderDay(false); renderShop(); waist();
+</script>
+</body>
+</html>
